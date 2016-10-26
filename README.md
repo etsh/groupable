@@ -6,9 +6,9 @@ It takes its inspiration from the Drupal community - think of it as a simplified
 ## Introduction
 The idea of Groupable is to turn any Eloquent model into a group which can be 'joined' by users and act as a container for 'content'.
 
-Addtionally, users may be given group roles on a role-by-role, group-by-group, basis.
+Addtionally, users may be given additional group roles on a group-by-group basis.
 
-Groupable works by adding traits to the models within your application that you wish to have this group like behaviour.
+Groupable works by adding traits to the models within your application that you wish to adopt this group like behaviour.
 
 ### The Traits
 Groupable provides three traits which can be added to your models:
@@ -18,12 +18,42 @@ Groupable provides three traits which can be added to your models:
 - The `IsGroupable` trait is added to models which you would like to be treated as group content.
 
 ### Helper methods
-Groupable includes a class called `Groupable` which offers some simple helper methods.
+Groupable includes a class called `Groupable` which offers some simple internal helper methods.
 
 ### Database Structure
 Groupable requires 3 tables to be added to your schema and includes database migrations out of the box.
 
 There is no need to publish these migrations to your project as the accompanying service provider points to the migrations folder within your Composer vendor folder.
+
+The table structure is as follows:
+
+```
+groupables:
+    id
+    group_id
+    group_type
+    groupable_id
+    groupable_type
+    created_at
+    updated_at
+
+groupable_roles:
+    id
+    group_id
+    group_type
+    user_id
+    role
+    created_at
+    updated_at
+
+groupable_members:
+    id
+    group_id
+    group_type
+    user_id
+    created_at
+    updated_at
+```
 
 ## Installation
 Installation is via composer:
@@ -187,4 +217,18 @@ You can check whether a group member has a given group role like this:
 
 ```php
 $user->hasGroupRole($group, $role);
+```
+
+### Checking which content types may be added to a group
+You can check which content types may be added to a group like this:
+
+```php
+$group->types()
+```
+
+### Checking which roles are available within a group
+You can check which roles are available within a group like this:
+
+```php
+$group->roles()
 ```
