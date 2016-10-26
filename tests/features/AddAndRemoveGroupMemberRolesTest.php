@@ -87,4 +87,10 @@ class AddAndRemoveGroupMemberRolesTest extends TestCase
         // Then:
         # Exception should be thrown.
     }
+
+    /** @test */
+    public function get_members_with_a_given_role()
+    {
+        
+    }
 }
