@@ -44,7 +44,7 @@ Finally, run the migrations:
 art migrate
 ```
 
-## Instructions
+## Instructions: Setup
 
 ### Creating a Group
 Simply `use` the `IsGroup` trait in the model that you wish to become a group.
@@ -73,5 +73,86 @@ Then create the properties `$groupable_models` and `$groupable_roles`.
     ];
 
     ...
-}
+```
+
+### Creating Groupable content
+Simply `use` the `IsGroupable` trait in the model that you wish to become groupable content.
+
+```
+use Etsh\Groupable\Traits\IsGroup;
+
+class Group extends Model
+{
+    use IsGroupable
+```
+
+### Allowing users to join groups
+It's possible to join users to groups without using the 'CanJoinGroups' trait, however it provides some useful helper functions.
+
+Include it in your user model like so:
+
+```
+use Etsh\Groupable\Traits\CanJoinGroups;
+
+class User extends Authenticatable
+{
+    use CanJoinGroups;
+```
+
+## Instructions: Usage
+
+### Add and remove group content
+Content can be added to a group like this:
+
+```
+$group->addContent($groupable_content);
+```
+
+And removed like this:
+
+```
+$group->removeContent($groupable_content);
+```
+
+### Retrieve group content
+You can retrieve all group content like this:
+
+```
+$group->content();
+```
+
+Which returns a Laravel collection containing each model.
+
+You can also make your content requests more specific by passing an array of required types to the content() method:
+
+```
+$group->content(['GroupableContentType1', 'GroupableContentType2']);
+```
+
+### Join and leave a group
+Users can be joined to groups like this:
+
+```
+$group->join($user);
+```
+
+And removed like this:
+
+```
+$group->leave($user);
+```
+
+### Retrieve group members
+You can retrieve all group members like this:
+
+```
+$group->members();
+```
+
+Which returns a Laravel collection containing each user model.
+
+You can also make your member requests more specific by passing an array of required roles to the members() method:
+
+```
+$group->members(['admin', 'editor']);
 ```
