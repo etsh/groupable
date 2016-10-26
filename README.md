@@ -76,7 +76,7 @@ Then create the properties `$groupable_models` and `$groupable_roles`.
 `$groupable_roles` should be an array contining the names of additional roles that you wish members to be grantable to members of this group.
 
 ### Creating Groupable content
-Simply `use` the `IsGroupable` trait in the model that you wish to become groupable content.
+Simply use the `IsGroupable` trait in the model that you wish to become groupable content.
 
 ```php
 use Etsh\Groupable\Traits\IsGroup;
@@ -168,7 +168,7 @@ $user->belongsToGroup($group);
 ### Grant and revoke special group roles
 The `join()` method is all that is required to make a user a 'member' of a given group.
 
-You will probably want to grant some users special priveleges within your groups and this can be done in the following ways. The available roles can be defined on a group by group basis and should be expressed by adding the required roles to the $groupable_roles property on the group model.
+You will probably want to grant some users special priveleges within your groups and this can be done in the following ways. The available roles can be defined on a group by group basis and should be expressed by adding the required roles to the `$groupable_roles` property on the group model.
 
 Users can be granted group roles like this:
 
