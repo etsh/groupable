@@ -47,7 +47,15 @@ art migrate
 ## Instructions
 
 ### Creating a Group
-Simply `use` the `Is group` trait in the model that you wish to become a group.
+Simply `use` the `IsGroup` trait in the model that you wish to become a group.
+
+```
+use Etsh\Groupable\Traits\IsGroup;
+
+class Group extends Model
+{
+    use IsGroup
+```
 
 Then create the properties `$groupable_models` and `$groupable_roles`.
 
@@ -56,18 +64,14 @@ Then create the properties `$groupable_models` and `$groupable_roles`.
 `$groupable_roles` should be an array contining the names of additional roles that you wish members to be grantable to members of this group.
 
 ```
-use Etsh\Groupable\Traits\IsGroup;
-
-class Group extends Model
-{
-    use IsGroup
-
     protected $groupable_models = [
-        Department::class,
+        GroupableContent::class,
     ];
 
     protected $groupable_roles = [
         'admin',
     ];
+
+    ...
 }
 ```
