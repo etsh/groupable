@@ -198,7 +198,7 @@ $user->belongsToGroup($group);
 ### Grant and revoke special group roles
 The `join()` method is all that is required to make a user a 'member' of a given group.
 
-You will probably want to grant some users special priveleges within your groups and this can be done in the following ways. The available roles can be defined on a group by group basis and should be expressed by adding the required roles to the `$groupable_roles` property on the group model.
+You will probably want to grant some users special priveleges within your groups and this can be done in the following ways:
 
 Users can be granted group roles like this:
 
@@ -211,6 +211,8 @@ And those roles can be revoked like this:
 ```php
 $group->revoke($user, $role);
 ```
+
+The available roles can be defined on a group by group basis and should be expressed by adding the required roles to the `$groupable_roles` property on the group model.
 
 ### Checking whether a user has a group role
 You can check whether a group member has a given group role like this:
