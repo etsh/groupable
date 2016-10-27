@@ -79,13 +79,12 @@ trait IsGroup
     /**
      * Grant a group role.
      * API: $group->grant($user, $role)
-     * TODO: Ensure that user belongs to group before assigning role.
      *
      * @return  bool
      */
     public function grant($user, $role)
     {
-        if ($this->validRole($role)) {
+        if ($this->validRole($role) && $user->belongsToGroup($this)) {
             return DB::table('groupable_roles')->insert([
                 'group_id' => $this->id,
                 'group_type' => get_class($this),
@@ -108,7 +107,7 @@ trait IsGroup
      */
     public function revoke($user, $role)
     {
-        if ($this->validRole($role)) {
+        if ($this->validRole($role) && $user->belongsToGroup($this)) {
             return DB::table('groupable_roles')->where([
                 ['group_id', '=', $this->id],
                 ['group_type', '=', get_class($this)],
