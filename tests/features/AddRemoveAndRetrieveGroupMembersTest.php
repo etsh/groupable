@@ -84,4 +84,10 @@ class AddRemoveAndRetrieveGroupMembersTest extends TestCase
         // Then:
         $this->assertEquals(1, $result->count());
     }
+
+    /** @test */
+    public function retrieve_group_members_with_a_given_role()
+    {
+        // TODO: This
+    }
 }

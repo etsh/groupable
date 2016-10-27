@@ -66,6 +66,12 @@ class AddRemoveAndRetrieveGroupContentTest extends TestCase
     }
 
     /** @test */
+    public function retrieve_group_content_of_given_type()
+    {
+        // TODO: This
+    }
+
+    /** @test */
     public function remove_group_content()
     {
         // Given:
