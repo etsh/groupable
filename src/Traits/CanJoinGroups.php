@@ -3,6 +3,7 @@
 namespace Etsh\Groupable\Traits;
 
 use DB;
+use Exception;
 use Etsh\Groupable\Groupable;
 
 /*
@@ -90,5 +91,23 @@ Trait CanJoinGroups
     public function groupRoles($group)
     {
         // TODO: Retrieve all group roles for a given user and group.
+        $collection = collect(['member']);
+
+        if ($this->belongsToGroup($group)) {
+            $roles = DB::table('groupable_roles')->where([
+                'group_id' => $group->id,
+                'group_type' => get_class($group),
+                'user_id' => $this->id,
+            ])->get();
+
+            foreach ($roles as $role) {
+                $collection->push($role->role);
+            }
+
+            return $collection;
+        }
+        else {
+            throw new Exception("User is not a member of this group.");
+        }
     }
 }
