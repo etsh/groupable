@@ -86,8 +86,21 @@ class AddRemoveAndRetrieveGroupMembersTest extends TestCase
     }
 
     /** @test */
-    public function retrieve_group_members_with_a_given_role()
+    public function retrieve_group_members_with_given_roles()
     {
-        // TODO: This
+        // Given:
+        $this->build();
+        $this->school->join($this->user);
+        $this->seeInDatabase('groupable_members', [
+            'group_id' => $this->school->id,
+            'group_type' => get_class($this->school),
+            'user_id' => $this->user->id,
+        ]);
+
+        // When:
+        $result = $this->school->members(['admin']);
+
+        // Then:
+        $this->assertEquals(1, $result->count());
     }
 }

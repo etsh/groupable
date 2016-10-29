@@ -45,9 +45,9 @@ class AddRemoveAndRetrieveGroupContentTest extends TestCase
         // Then:
         $this->seeInDatabase('groupables', [
             'group_id' => $this->school->id,
-            'group_type' => 'App\School',
+            'group_type' => School::class,
             'groupable_id' => $this->department->id,
-            'groupable_type' => 'App\Department',
+            'groupable_type' => Department::class,
         ]);
     }
 
@@ -62,13 +62,22 @@ class AddRemoveAndRetrieveGroupContentTest extends TestCase
         $school_content = $this->school->content();
 
         // Then:
-        $this->assertInstanceOf('App\Department', $school_content->first());
+        $this->assertInstanceOf(Department::class, $school_content->first());
     }
 
     /** @test */
-    public function retrieve_group_content_of_given_type()
+    public function retrieve_group_content_of_given_types()
     {
         // TODO: This
+        // Given:
+        $this->build();
+        $this->school->addContent($this->department);
+
+        // When:
+        $school_content = $this->school->content([Department::class]);
+
+        // Then:
+        $this->assertInstanceOf(Department::class, $school_content->first());
     }
 
     /** @test */

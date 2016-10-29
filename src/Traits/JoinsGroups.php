@@ -16,13 +16,13 @@ use Etsh\Groupable\Groupable;
 |
 */
 
-Trait CanJoinGroups
+Trait JoinsGroups
 {
     /**
      * Get all user's groups.
      * API: $user->groups()
      *
-     * @return array
+     * @return  array
      */
     public function groups()
     {
@@ -43,7 +43,7 @@ Trait CanJoinGroups
      * Check if a user belongs to a particular group.
      * API: $user->belongsToGroup($group)
      *
-     * @return bool
+     * @return  bool
      */
     public function belongsToGroup($group)
     {
@@ -64,7 +64,7 @@ Trait CanJoinGroups
      * Check if a user has a group role.
      * API: $user->hasGroupRole($group, $role)
      *
-     * @return bool
+     * @return  bool
      */
     public function hasGroupRole($group, $role)
     {
@@ -84,9 +84,9 @@ Trait CanJoinGroups
 
     /**
      * Retrieve the roles a user has within a given group.
-     * API: $user->hasGroupRole($group, $role)
+     * API: $user->groupRoles($group, $role)
      *
-     * @return bool
+     * @return  array
      */
     public function groupRoles($group)
     {

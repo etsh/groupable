@@ -191,21 +191,13 @@ trait IsGroup
             $collection->push(User::find($member->user_id));
         }
 
-        return $collection;
-    }
+        foreach($roles as $role) {
+            $collection->filter(function ($value, $key) use ($role) {
+                return $value->hasGroupRole($this, $role);
+            });
+        }
 
-    /**
-     * Return all group members with a given role.
-     * API: $group->membersWithRole($role)
-     *
-     * @param  array
-     * @return  array
-     */
-    protected function membersWithRole($role)
-    {
-        // TODO: get members with $role
-        // Probably best to use the collection->filter method here.
-        // return array/collection
+        return $collection;
     }
 
     /**
@@ -214,48 +206,24 @@ trait IsGroup
      *
      * @param  array
      * @return  array
-     *
-     * TODO: Refactor this method.
      */
     public function content(array $types = [])
     {
+        $contents = DB::table('groupables')
+                    ->select('groupable_id', 'groupable_type')
+                    ->where([
+                        ['group_id', '=', $this->id],
+                        ['group_type', '=', get_class($this)],
+                    ])
+                    ->where(Groupable::whereClause('groupable_type', $types))
+                    ->get();
+
         $collection = collect([]);
 
-        if (empty($types)) {
-            $contents = DB::table('groupables')
-                            ->select('groupable_id', 'groupable_type')
-                            ->where([
-                                ['group_id', '=', $this->id],
-                                ['group_type', '=', get_class($this)],
-                            ])
-                            ->get();
-
-            foreach ($contents as $content) {
-                $collection->push(Groupable::resolveModel($content->groupable_type, $content->groupable_id));
-            }
-
-            return $collection;
-        }
-
-        foreach ($types as $type) {
-            // TODO: add all content with type == $type to $collection.
-            // $content = $this->contentOfType($type);
-            // $collection->merge($content)
+        foreach ($contents as $content) {
+            $collection->push(Groupable::resolveModel($content->groupable_type, $content->groupable_id));
         }
 
         return $collection;
-    }
-
-    /**
-     * Return all group content of given type.
-     * API: $group->contentOfType($type)
-     *
-     * @return  array
-     */
-    protected function contentOfType($type)
-    {
-        // get content of $type
-        // Probably best to use the collection->filter method here.
-        // return array/collection
     }
 }

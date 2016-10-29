@@ -13,12 +13,14 @@ Groupable works by adding traits to the models within your application that you 
 ### The Traits
 Groupable provides three traits which can be added to your models:
 
-- The `CanJoinGroups` trait is added to your User model.
 - The `IsGroup` trait is added to a model which you would like to be treated as a group.
 - The `IsGroupable` trait is added to models which you would like to be treated as group content.
+- The `JoinsGroups` trait is added to your User model.
+
+In fact, only the `IsGroup` trait is necessary in order to obtain group funtionality. However, the `IsGroupable` and `JoinsGroups` traits provide useful group related functionality to your user model and groupable content types.
 
 ### Helper methods
-Groupable includes a class called `Groupable` which offers some simple internal helper methods.
+Groupable includes a class called `Groupable` which offers internal helper methods. You likely won't need to use this class unless you intend to modify the code within this project yourself.
 
 ### Database Structure
 Groupable requires 3 tables to be added to your schema and includes database migrations out of the box.
@@ -87,7 +89,7 @@ class Group extends Model
     use IsGroup
 ```
 
-Then create the properties `$groupable_models` and `$groupable_roles`.
+Then create the properties `$groupable_models` and `$groupable_roles`:
 
 ```php
     protected $groupable_models = [
@@ -103,10 +105,12 @@ Then create the properties `$groupable_models` and `$groupable_roles`.
 
 `$groupable_models` should be an array containing the fully-qualified class name of the models which should be allowed to be grouped within this group. Groupable will throw an exception if you attempt to add a content type not specified here to the group.
 
-`$groupable_roles` should be an array contining the names of additional roles that you wish members to be grantable to members of this group.
+`$groupable_roles` should be an array containing the names of additional roles that you wish members to be grantable to members of this group.
 
 ### Creating Groupable content
-Simply use the `IsGroupable` trait in the model that you wish to become groupable content.
+Only models specified within the `$groupable_models` property on your group model may be added to a given group.
+
+To add additional functionality use the `IsGroupable` trait on the model that represents your groupable content.
 
 ```php
 use Etsh\Groupable\Traits\IsGroup;
@@ -130,6 +134,8 @@ class User extends Authenticatable
 ```
 
 ## Instructions: Usage
+
+These instructions assume that you have used the `IsGroupable` trait in your groupable models and the `JoinsTeams` trait on your user model.
 
 ### Add and remove group content
 Content can be added to a group like this:
@@ -219,6 +225,13 @@ You can check whether a group member has a given group role like this:
 
 ```php
 $user->hasGroupRole($group, $role);
+```
+
+### Seeing which group roles a user has
+You can see all roles a user has for a given group like this:
+
+```php
+$user->groupRoles($group);
 ```
 
 ### Checking which content types may be added to a group
