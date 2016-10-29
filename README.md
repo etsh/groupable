@@ -251,3 +251,4 @@ $group->roles()
 ## To Do
 - Fix the method for getting group members by group role type.
 - Add named groups so that group categories have human readable names.
+- Split group traits into separate files to make code more readable.
