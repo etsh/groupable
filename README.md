@@ -249,5 +249,5 @@ $group->roles()
 ```
 
 ## To Do
-- Sort out get members by type for a given group.
-- Add named groups (rather than having to use the FCCN)
+- Fix the method for getting group members by group role type.
+- Add named groups so that group categories have human readable names.
