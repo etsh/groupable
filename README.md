@@ -187,11 +187,11 @@ $group->members();
 
 Which returns a Laravel collection containing each user model.
 
-You can also make your member requests more specific by passing an array of required roles to the members() method:
+<!-- You can also make your member requests more specific by passing an array of required roles to the members() method:
 
 ```php
 $group->members(['admin', 'editor']);
-```
+``` -->
 
 ### Checking whether a user is a group member
 
