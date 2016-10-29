@@ -247,3 +247,7 @@ You can check which roles are available within a group like this:
 ```php
 $group->roles()
 ```
+
+## To Do
+- Sort out get members by type for a given group.
+- Add named groups (rather than having to use the FCCN)
