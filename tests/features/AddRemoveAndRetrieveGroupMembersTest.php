@@ -96,9 +96,10 @@ class AddRemoveAndRetrieveGroupMembersTest extends TestCase
             'group_type' => get_class($this->school),
             'user_id' => $this->user->id,
         ]);
+        $this->school->grant($this->user, 'admin');
 
         // When:
-        $result = $this->school->members(['admin']);
+        $result = $this->school->membersByRole('admin');
 
         // Then:
         $this->assertEquals(1, $result->count());

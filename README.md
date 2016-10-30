@@ -187,11 +187,11 @@ $group->members();
 
 Which returns a Laravel collection containing each user model.
 
-<!-- You can also make your member requests more specific by passing an array of required roles to the members() method:
+You can also retrieve all group members with a given role:
 
 ```php
-$group->members(['admin', 'editor']);
-``` -->
+$group->membersByRole(['admin']);
+```
 
 ### Checking whether a user is a group member
 
@@ -249,6 +249,4 @@ $group->roles()
 ```
 
 ## To Do
-- Fix the method for getting group members by group role type.
 - Add named groups so that group categories have human readable names.
-- Split group traits into separate files to make code more readable.
