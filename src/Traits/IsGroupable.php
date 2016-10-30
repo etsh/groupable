@@ -4,6 +4,7 @@ namespace Etsh\Groupable\Traits;
 
 use DB;
 use Carbon\Carbon;
+use Etsh\Groupable\Groupable;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,9 +25,18 @@ Trait IsGroupable
      */
     public function groups()
     {
-        $this_class = get_class($this);
-        $this_id = $this->id;
+        $collection = collect([]);
 
-        // TODO: Find all items on the groupable table that match the above.
+        $groups = DB::table('groupables')
+                    ->select('group_id', 'group_type')
+                    ->where('groupable_id', '=', $this->id)
+                    ->where('groupable_type', '=', get_class($this))
+                    ->get();
+
+        foreach ($groups as $group) {
+            $collection->push(Groupable::resolveModel($group->group_type, $group->group_id));
+        }
+
+        return $collection;
     }
 }
