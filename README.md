@@ -236,14 +236,21 @@ $user->groupRoles($group);
 You can check which content types may be added to a group like this:
 
 ```php
-$group->types()
+$group->types();
 ```
 
 ### Checking which roles are available within a group
 You can check which roles are available within a group like this:
 
 ```php
-$group->roles()
+$group->roles();
+```
+
+### Finding the other groups that groupable content belongs to
+You can retrieve a collection containing the other groups that a piece of groupable content belongs to like this:
+
+```php
+$groupable_content->groups();
 ```
 
 ## To Do
