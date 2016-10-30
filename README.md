@@ -190,7 +190,7 @@ Which returns a Laravel collection containing each user model.
 You can also retrieve all group members with a given role:
 
 ```php
-$group->membersByRole(['admin']);
+$group->membersByRole('admin');
 ```
 
 ### Checking whether a user is a group member
@@ -202,8 +202,6 @@ $user->belongsToGroup($group);
 ```
 
 ### Grant and revoke special group roles
-The `join()` method is all that is required to make a user a 'member' of a given group.
-
 You will probably want to grant some users special priveleges within your groups and this can be done in the following ways:
 
 Users can be granted group roles like this:
