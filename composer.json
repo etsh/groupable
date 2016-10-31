@@ -1,8 +1,8 @@
 {
-    "name": "etsh/group",
-    "description": "A laravel package for grouping content - Organic Groups for Laravel.",
+    "name": "etsh/groupable",
+    "description": "A laravel package for grouping content - like a simplified Organic Groups for Laravel.",
     "license": "MIT",
-    "keywords": ["group"],
+    "keywords": ["group", "groupable", "laravel", "package"],
     "authors": [
         {
             "name": "Simon Hunt",
