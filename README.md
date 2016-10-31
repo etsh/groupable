@@ -252,6 +252,3 @@ You can retrieve a collection containing the other groups that a piece of groupa
 ```php
 $groupable_content->groups();
 ```
-
-## To Do
-- Add named groups so that group categories have human readable names.
